@@ -1,10 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    {{ parent() }}
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
-
-    {{ form_stylesheet(form) }}
 {% endblock %}
 
 {% block javascripts %}
@@ -12,8 +9,7 @@
     <script src="{{ asset('js/jquery.min.jss') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
-    {{ form_javascript(form) }}
-{% endblock %}
+    {% endblock %}
 
 {% block body %}
     

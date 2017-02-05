@@ -2,8 +2,14 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/front/main.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/front/contact.css') }}" />
+            {#<link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.css') }}" />#}
+        {% endblock %}
     </head>
-    <body>
+    <body class="login-page">
         <div>
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |

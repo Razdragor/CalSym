@@ -4,7 +4,6 @@
     {{ parent() }}
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
 
-    {{ form_stylesheet(form) }}
 {% endblock %}
 
 {% block javascripts %}
@@ -12,31 +11,14 @@
     <script src="{{ asset('js/jquery.min.jss') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
-    {{ form_javascript(form) }}
 {% endblock %}
 
 {% block body %}
     
     <h1 class="text-center text-primary">Add new event to your calendar!</h1><br/>
-    
-    <form class="col-md-4 col-md-offset-4" role="form" action="{{ path("calendar_app_addEvent") }}" method="post">
 
-        <div class="form-group">
-            {{ form_widget(form.eventTitle, {'attr': {'class': 'form-control', 'placeholder': 'Event title:'}}) }}
-        </div>
-        
-        <div class="form-group">
-            {{ form_widget(form.eventContent, {'attr': {'class': 'form-control', 'placeholder': 'Event content:'}}) }}
-        </div>
-        
-        <div class="form-group">
-            {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
-        </div>
-        
-        <div class="text-center">
-            {{ form_widget(form.save, {'attr': {'class': 'btn btn-success'}}) }}
-	</div>
-        {{ form_rest(form) }}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
 
-    </form>
 {% endblock %}

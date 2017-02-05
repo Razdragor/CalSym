@@ -8,6 +8,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\UserEvent;
 use AppBundle\Form\Type\UserEventType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
+
 
 class UserController extends Controller {
 
@@ -26,11 +31,10 @@ class UserController extends Controller {
     /**
      * @Route("/app/event/add", name="calendar_app_addEvent")
      *
-     * @Template
      */
     public function addEventAction(Request $request) {
 
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->getUser();
 
         // create an event and give it some initial data
         $event = new UserEvent();
@@ -38,11 +42,17 @@ class UserController extends Controller {
         $event->setUserId($user->getId());
 
         //Create form using UserEventType class
-        $form = $this->createForm(new UserEventType(), $event);
+
+        $form = $this->createFormBuilder($event)
+            ->add('eventTitle', TextType::class)
+            ->add('eventContent', TextType::class)
+            ->add('date', DateType::class)
+            ->add('save', SubmitType::class, array('label' => 'Save Event'))
+            ->getForm();
+
         $form->handleRequest($request);
 
-        //if form is valid the event will be created
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
@@ -55,9 +65,11 @@ class UserController extends Controller {
             return $this->redirectToRoute('calendar_app_dashboard');
         }
 
-        return array(
+        return $this->render('user/addEvent.html.twig', array(
             'form' => $form->createView(),
-        );
+        ));
+        //if form is valid the event will be created
+
     }
 
     /**
