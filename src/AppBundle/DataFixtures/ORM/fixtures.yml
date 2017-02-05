@@ -1,0 +1,153 @@
+AppBundle\Entity\Company:
+    company{1..5}:
+        name: '<company()>'
+        address: '<streetAddress()>'
+        city: '<city()>'
+        phone: '<phoneNumber()>'
+
+AppBundle\Entity\User:
+    user{1..5}:
+        username (unique): '<username()>'
+        firstname: '<firstName()>'
+        lastname: '<lastName()>'
+        password: 'admin'
+        email (unique) : '<email()>'
+        role: 'PATIENT'
+        roles: ["PATIENT"]
+        enabled: 1
+        company: '@company1'
+
+    user{6..10}:
+        username (unique): '<username()>'
+        firstname: '<firstName()>'
+        lastname: '<lastName()>'
+        password: 'admin'
+        email (unique) : '<email()>'
+        role: 'PATIENT'
+        roles: ["PATIENT"]
+        enabled: 1
+        company: '@company2'
+
+    user{11..15}:
+        username (unique): '<username()>'
+        firstname: '<firstName()>'
+        lastname: '<lastName()>'
+        password: 'admin'
+        email (unique) : '<email()>'
+        role: 'PATIENT'
+        roles: ["PATIENT"]
+        enabled: 1
+        company: '@company3'
+
+    user{16..20}:
+        username (unique): '<username()>'
+        firstname: '<firstName()>'
+        lastname: '<lastName()>'
+        password: 'admin'
+        email (unique) : '<email()>'
+        role: 'PATIENT'
+        roles: ["PATIENT"]
+        enabled: 1
+        company: '@company4'
+
+
+    user{21..25}:
+        username (unique): '<username()>'
+        firstname: '<firstName()>'
+        lastname: '<lastName()>'
+        password: 'admin'
+        email (unique) : '<email()>'
+        role: 'PATIENT'
+        roles: ["PATIENT"]
+        enabled: 1
+        company: '@company5'
+
+    user{26..27}:
+        username (unique): '<username()>'
+        firstname: '<firstName()>'
+        lastname: '<lastName()>'
+        password: 'admin'
+        email (unique) : '<email()>'
+        role: 'PROF'
+        roles: ["PROF"]
+        enabled: 1
+        company: '@company1'
+
+    user{28..29}:
+        username (unique): '<username()>'
+        firstname: '<firstName()>'
+        lastname: '<lastName()>'
+        password: 'admin'
+        email (unique) : '<email()>'
+        role: 'PROF'
+        roles: ["PROF"]
+        enabled: 1
+        company: '@company2'
+
+    user{30..31}:
+        username (unique): '<username()>'
+        firstname: '<firstName()>'
+        lastname: '<lastName()>'
+        password: 'admin'
+        email (unique) : '<email()>'
+        role: 'PROF'
+        roles: ["PROF"]
+        enabled: 1
+        company: '@company3'
+
+    user{32..33}:
+        username (unique): '<username()>'
+        firstname: '<firstName()>'
+        lastname: '<lastName()>'
+        password: 'admin'
+        email (unique) : '<email()>'
+        role: 'PROF'
+        roles: ["PROF"]
+        enabled: 1
+        company: '@company4'
+
+    user{34..35}:
+        username (unique): '<username()>'
+        firstname: '<firstName()>'
+        lastname: '<lastName()>'
+        password: 'admin'
+        email (unique) : '<email()>'
+        role: 'PROF'
+        roles: ["PROF"]
+        enabled: 1
+        company: '@company5'
+
+AppBundle\Entity\UserEvent:
+
+    userevent1:
+        eventTitle: 'Rendez vous 1'
+        eventContent: 'Rendez vous 1'
+        date: '<dateTimeBetween("2017-02-15 08:00:00", "2017-02-15 08:00:00")>'
+        userId: '@user1'
+    userevent2:
+          eventTitle: 'Rendez vous 1'
+          eventContent: 'Rendez vous 1'
+          date: '<dateTimeBetween("2017-02-15 08:00:00", "2017-02-15 08:00:00")>'
+          userId: '@user26'
+
+    userevent3:
+        eventTitle: 'Rendez vous 2'
+        eventContent: 'Rendez vous 2'
+        date: '<dateTimeBetween("2017-02-15 08:30:00", "2017-02-15 08:30:00")>'
+        userId: '@user2'
+    userevent4:
+        eventTitle: 'Rendez vous 2'
+        eventContent: 'Rendez vous 2'
+        date: '<dateTimeBetween("2017-02-15 08:30:00", "2017-02-15 08:30:00")>'
+        userId: '@user26'
+
+    userevent5:
+        eventTitle: 'Rendez vous 3'
+        eventContent: 'Rendez vous 3'
+        date: '<dateTimeBetween("2017-02-15 09:00:00", "2017-02-15 09:00:00")>'
+        userId: '@user3'
+    userevent6:
+        eventTitle: 'Rendez vous 3'
+        eventContent: 'Rendez vous 3'
+        date: '<dateTimeBetween("2017-02-15 09:00:00", "2017-02-15 09:00:00")>'
+        userId: '@user26'
