@@ -6,8 +6,6 @@
 
     {% block stylesheets %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <link type="text/css" rel="stylesheet" media="all" href="{{ asset_url }}" />
-
         <link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
     {% endblock %}
 
@@ -60,8 +58,6 @@
     {% block body %}{% endblock %}
 
 </div>
-{% javascripts '@CalendarEngineBundle/Resources/public/js/*' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
+
 </body>
 </html>
