@@ -3,15 +3,21 @@ namespace AppBundle\EventListener;
 
 use ADesigns\CalendarBundle\Event\CalendarEvent;
 use ADesigns\CalendarBundle\Entity\EventEntity;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class CalendarEventListener
 {
     private $entityManager;
 
-    public function __construct(EntityManager $entityManager)
+    private $token_storage;
+    public function __construct(EntityManager $entityManager,TokenStorageInterface $token_storage)
     {
         $this->entityManager = $entityManager;
+        $this->token_storage = $token_storage;
+
     }
 
     public function loadEvents(CalendarEvent $calendarEvent)
@@ -24,6 +30,7 @@ class CalendarEventListener
 
         $request = $calendarEvent->getRequest();
         $filter = $request->get('filter');
+
 
 
         // load events using your custom logic here,
@@ -59,7 +66,7 @@ class CalendarEventListener
             }
 
             $eventEntity->setFgColor('#FFFFFF'); //set the foreground color of the event's label
-            $eventEntity->setUrl('http://www.google.com'); // url to send user to when event label is clicked
+            $eventEntity->setUrl("http://localhost/CalSym/web/app_dev.php/app/event/".$companyEvent->getId());
             $eventEntity->setCssClass('my-custom-class'); // a custom class you may want to apply to event labels
 
             //finally, add the event to the CalendarEvent for displaying on the calendar

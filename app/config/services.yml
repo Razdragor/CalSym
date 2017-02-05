@@ -10,6 +10,6 @@ services:
     app_bundle.service.listener:
         class: AppBundle\EventListener\CalendarEventListener
         arguments:
-            [ "@doctrine.orm.entity_manager" ]
+            ["@doctrine.orm.entity_manager", "@security.token_storage"]
         tags:
             - { name: 'kernel.event_listener', event: 'calendar.load_events', method: loadEvents }

@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\UserEvent;
 use AppBundle\Form\Type\UserEventType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
@@ -46,7 +46,7 @@ class UserController extends Controller {
         $form = $this->createFormBuilder($event)
             ->add('eventTitle', TextType::class)
             ->add('eventContent', TextType::class)
-            ->add('date', DateType::class)
+            ->add('date', DateTimeType ::class)
             ->add('save', SubmitType::class, array('label' => 'Save Event'))
             ->getForm();
 
@@ -81,9 +81,9 @@ class UserController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
 
-        $event = $em->getRepository("CalendarEngineBundle:UserEvent")->findOneById($id);
+        $event = $em->getRepository("AppBundle:UserEvent")->findOneById($id);
 
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->getUser();
 
         //Check whether event belongs to user
         if ($user->getId() !== $event->getUserId()) {
@@ -107,10 +107,11 @@ class UserController extends Controller {
      * @Template
      */
     public function removeEventAction($id) {
-        $user = $this->get('security.context')->getToken()->getUser();
+
+        $user = $this->getUser();
 
         $em = $this->getDoctrine()->getManager();
-        $event = $em->getRepository("CalendarEngineBundle:UserEvent")->findOneById($id);
+        $event = $em->getRepository("AppBundle:UserEvent")->findOneById($id);
 
         //Check whether event belongs to user
         if ($user->getId() === $event->getUserId()) {
@@ -135,10 +136,11 @@ class UserController extends Controller {
      * @Template
      */
     public function editEventAction($id, Request $request) {
-        $user = $this->get('security.context')->getToken()->getUser();
 
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-        $event = $em->getRepository("CalendarEngineBundle:UserEvent")->findOneById($id);
+
+        $event = $em->getRepository("AppBundle:UserEvent")->findOneById($id);
 
         //Check whether event belongs to user
         if ($user->getId() !== $event->getUserId()) {
@@ -148,12 +150,16 @@ class UserController extends Controller {
             return $this->redirectToRoute('calendar_app_dashboard');
         }
 
-        //Create form using UserEventType class
-        $form = $this->createForm(new UserEventType(), $event);
+        $form = $this->createFormBuilder($event)
+            ->add('eventTitle', TextType::class)
+            ->add('eventContent', TextType::class)
+            ->add('date', DateTimeType ::class)
+            ->add('save', SubmitType::class, array('label' => 'Save Event'))
+            ->getForm();
+
         $form->handleRequest($request);
 
-        //if form is valid the event will be created
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
@@ -166,10 +172,34 @@ class UserController extends Controller {
             return $this->redirectToRoute('calendar_app_dashboard');
         }
 
-        return array(
+        return $this->render('user/editEvent.html.twig', array(
             'id' => $event->getId(),
             'form' => $form->createView(),
-        );
+        ));
+
+        //Create form using UserEventType class
+
+//        $form = $this->createForm(new UserEventType(), $event);
+//        $form->handleRequest($request);
+//
+//        //if form is valid the event will be created
+//        if ($form->isValid()) {
+//
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($event);
+//            $em->flush();
+//
+//            $this->addFlash(
+//                'success', 'You\'ve successfully edited event!'
+//            );
+//
+//            return $this->redirectToRoute('calendar_app_dashboard');
+//        }
+//
+//        return array(
+//            'id' => $event->getId(),
+//            'form' => $form->createView(),
+//        );
     }
 
 }
