@@ -48,10 +48,9 @@ class UserEvent
     private $date;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="user_id", type="integer")
-     */
+    * @ORM\ManyToOne(targetEntity="User")
+    * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+    */
     private $userId;
 
 
