@@ -11,14 +11,16 @@ use AppBundle\Form\Type\UserEventType;
 
 class UserController extends Controller {
 
+
     /**
      * @Route("/app", name="calendar_app_dashboard")
-     *
-     * @Template
      */
-    public function dashboardAction() {
-
-        return [];
+    public function dashboardAction(Request $request)
+    {
+        // replace this example code with whatever you need
+        return $this->render('user/dashboard.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..')
+        ]);
     }
 
     /**
