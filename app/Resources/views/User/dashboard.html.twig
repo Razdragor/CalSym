@@ -16,6 +16,12 @@
             <strong>Warning:</strong> {{ flashMessage }}
         </div>
         {% endfor %}
+
+        <input type="hidden" value="{{ app.user.id }}" name="userid">
+
+
         {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
     </div>
+    <script type="text/javascript">
+    </script>
 {% endblock %}

@@ -56,6 +56,16 @@ class User extends BaseUser
     protected $role;
 
     /**
+     * @ORM\Column(name="activity", type="string", length=255,nullable=true)
+     */
+    protected $activity;
+
+    /**
+     * @ORM\Column(name="address", type="string", length=255,nullable=true)
+     */
+    protected $address;
+
+    /**
      * Get id
      *
      * @return int
@@ -220,6 +230,38 @@ class User extends BaseUser
     public function getRole()
     {
         return $this->role;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActivity()
+    {
+        return $this->activity;
+    }
+
+    /**
+     * @param mixed $activity
+     */
+    public function setActivity($activity)
+    {
+        $this->activity = $activity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param mixed $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
     }
     public function setRole($role)
     {

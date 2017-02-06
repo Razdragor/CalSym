@@ -11,7 +11,7 @@ use AppBundle\Form\Type\UserEventType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
 class UserController extends Controller {
@@ -93,12 +93,12 @@ class UserController extends Controller {
             return $this->redirectToRoute('calendar_app_dashboard');
         }
 
-        return [
+        return $this->render('user/showEvent.html.twig', array(
             "id" => $event->getId(),
             "title" => $event->getEventTitle(),
             "content" => $event->getEventContent(),
             "date" => $event->getDate()
-        ];
+        ));
     }
 
     /**
@@ -154,6 +154,7 @@ class UserController extends Controller {
             ->add('eventTitle', TextType::class)
             ->add('eventContent', TextType::class)
             ->add('date', DateTimeType ::class)
+            ->add('isactive', ChoiceType::class, array('choices' => array('Validé' => true, 'En attente' => false)))
             ->add('save', SubmitType::class, array('label' => 'Save Event'))
             ->getForm();
 
@@ -177,29 +178,50 @@ class UserController extends Controller {
             'form' => $form->createView(),
         ));
 
-        //Create form using UserEventType class
-
-//        $form = $this->createForm(new UserEventType(), $event);
-//        $form->handleRequest($request);
-//
-//        //if form is valid the event will be created
-//        if ($form->isValid()) {
-//
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($event);
-//            $em->flush();
-//
-//            $this->addFlash(
-//                'success', 'You\'ve successfully edited event!'
-//            );
-//
-//            return $this->redirectToRoute('calendar_app_dashboard');
-//        }
-//
-//        return array(
-//            'id' => $event->getId(),
-//            'form' => $form->createView(),
-//        );
     }
+
+    /**
+     * @Route("/app/event/list", name="calendar_app_listEvent")
+     *
+     * @Template
+     */
+    public function listEventAction(Request $request) {
+
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $repository = $this->getDoctrine()->getRepository('AppBundle:UserEvent');
+
+        $events = $repository->findBy(
+            array('userId' => $user->getId())
+        );
+
+         return $this->render('user/listEvent.html.twig', array(
+            'events' => $events
+        ));
+
+    }
+
+
+    /**
+     * @Route("/listp", name="calendar_app_listPro")
+     */
+    public function listProAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $repository = $this->getDoctrine()->getRepository('AppBundle:User');
+
+        $users= $repository->findBy(
+            array('role' => "PROF")
+        );
+
+        return $this->render('user/listpro.html.twig', array(
+            'users' => $users
+        ));
+
+
+    }
+
 
 }

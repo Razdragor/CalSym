@@ -50,10 +50,15 @@ class UserEvent
     /**
      * @var integer
      *
-     * @ORM\Column(name="user_id", type="integer")
+     * @ORM\Column(name="userId", type="integer")
      */
     private $userId;
 
+/**
+     * @var isactive
+     * @ORM\Column(name="isactive", type="boolean", options={"default":false})
+     */
+    protected $isactive;
 
     /**
      * Get id
@@ -156,4 +161,28 @@ class UserEvent
     {
         return $this->eventTitle;
     }
+
+    /**
+     * Set isactive
+     *
+     * @param boolean $isactive
+     * @return boolean
+     */
+    public function setIsactive($isactive)
+    {
+        $this->isactive = $isactive;
+
+        return $this;
+    }
+
+    /**
+     * Get isactive
+     *
+     * @return boolean
+     */
+    public function getIsactive()
+    {
+        return $this->isactive;
+    }
+
 }

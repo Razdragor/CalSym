@@ -25,13 +25,13 @@ class CalendarEventListener
         $startDate = $calendarEvent->getStartDatetime();
         $endDate = $calendarEvent->getEndDatetime();
 
+//        $user = $this->get('security.token_storage')->getToken()->getUser();
+
         // The original request so you can get filters from the calendar
         // Use the filter in your query for example
 
         $request = $calendarEvent->getRequest();
-        $filter = $request->get('filter');
-
-
+        $filter = $request->get('userid');
 
         // load events using your custom logic here,
         // for instance, retrieving events from a repository
@@ -39,8 +39,10 @@ class CalendarEventListener
         $companyEvents = $this->entityManager->getRepository('AppBundle:UserEvent')
         ->createQueryBuilder('user_event')
         ->where('user_event.date BETWEEN :startDate and :endDate')
+        ->andWhere('user_event.userId = :userId')
         ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
         ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
+        ->setParameter("userId", $filter)
         ->getQuery()->getResult();
 
         // $companyEvents and $companyEvent in this example
@@ -53,6 +55,8 @@ class CalendarEventListener
         foreach($companyEvents as $companyEvent) {
 
             $eventDate = $companyEvent->getDate();
+            $isactive = $companyEvent->getIsactive();
+
             $now = new \DateTime('now');
 
             $eventEntity = new EventEntity($eventDate->format("H:i")." ".$companyEvent->getEventTitle(), $eventDate, null, true);
@@ -60,9 +64,13 @@ class CalendarEventListener
             //optional calendar event settings
             $eventEntity->setAllDay(true); // default is false, set to true if this is an all day event
             if($eventDate < $now){
-                $eventEntity->setBgColor('#FF0000'); //set the background color of the event's label
-            }else{
-                $eventEntity->setBgColor('#17961E'); //set the background color of the event's label
+                $eventEntity->setBgColor('#FF0000');
+            }
+            if($isactive == 0){
+                $eventEntity->setBgColor('#F0E36B');
+            }
+            else{
+                $eventEntity->setBgColor('#17961E');
             }
 
             $eventEntity->setFgColor('#FFFFFF'); //set the foreground color of the event's label

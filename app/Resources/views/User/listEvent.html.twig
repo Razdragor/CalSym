@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    {% for event in events %}
+
+    <h4 class="underline">Event #{{event.id}}</h4>
+    <h3><small>Title:</small> {{event.eventtitle}}</h3>
+    <h4><small>Date:</small> {{event.date|date("Y-m-d")}}</h4>
+    <h4><small>Hour:</small> {{event.date|date("H:i")}}</h4>
+    <br/><br/>
+    <p><small>Content:</small> {{event.eventcontent}}</p>
+    {% if event.isactive %}
+        <p><small>Content:</small> actif</p>
+    {% else %}
+        <p><small>Content:</small> pasactif</p>
+    {% endif %}
+            <br/>
+    <a class="btn btn-primary" href="{{ path("calendar_app_editEvent", {'id': event.id}) }}">Edit</a>
+    <a class="btn btn-danger" href="{{ path("calendar_app_removeEvent", {'id': event.id}) }}">Remove</a>
+    {%  endfor %}
+{% endblock %}

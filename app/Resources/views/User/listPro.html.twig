@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    {% for pro in users %}
+
+        <h4 class="underline">Nom #{{pro.lastname}}</h4>
+        <h3><small>Title:</small> {{pro.firstname}}</h3>
+        {#<h4><small>Date:</small> {{pro.speciality}}</h4>#}
+        {#<p><small>Content:</small> {{event.adresse}}</p>#}
+        <br/>
+        {#<a class="btn btn-primary" href="{{ path("calendar_app_editEvent", {'id': event.id}) }}">Edit</a>#}
+        {#<a class="btn btn-danger" href="{{ path("calendar_app_removeEvent", {'id': event.id}) }}">Remove</a>#}
+
+    {%  endfor %}
+{% endblock %}

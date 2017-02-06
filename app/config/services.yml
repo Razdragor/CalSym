@@ -13,3 +13,8 @@ services:
             ["@doctrine.orm.entity_manager", "@security.token_storage"]
         tags:
             - { name: 'kernel.event_listener', event: 'calendar.load_events', method: loadEvents }
+    app_bundle.form.type.profil:
+        class: AppBundle\Form\Type\ProfileFormType
+        arguments: ["@security.authorization_checker"]
+        tags:
+            - { name: form.type }

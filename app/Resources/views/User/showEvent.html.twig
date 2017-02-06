@@ -2,9 +2,9 @@
 
 
 {% block body %}
-    
+
     <h4 class="underline">Event #{{id}}</h4>
-    
+
     <h1><small>Title:</small> {{title}}</h1>
     <h3><small>Date:</small> {{date|date("Y-m-d")}}</h3>
     <h3><small>Hour:</small> {{date|date("H:i")}}</h3>
@@ -13,5 +13,5 @@
     <br/>
     <a class="btn btn-primary" href="{{ path("calendar_app_editEvent", {'id': id}) }}">Edit</a>
     <a class="btn btn-danger" href="{{ path("calendar_app_removeEvent", {'id': id}) }}">Remove</a>
-    
+
 {% endblock %}
