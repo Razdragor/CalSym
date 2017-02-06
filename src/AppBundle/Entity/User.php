@@ -201,30 +201,32 @@ class User extends BaseUser
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="users")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
-    private $companyId;
+    private $company;
 
     /**
-     * Set companyId
+     * Set company
      *
-     * @param integer $companyId
+     * @param integer $company
      *
      * @return User
      */
-    public function setCompanyId($companyId)
+    public function setCompanyId($company)
     {
-        $this->companyId = $companyId;
+        $this->company = $company;
 
         return $this;
     }
+
+
 
     /**
      * Get companyId
      *
      * @return int
      */
-    public function getCompanyId()
+    public function getCompany()
     {
-        return $this->companyId;
+        return $this->company;
     }
 
     public function getRole()
