@@ -27,6 +27,7 @@ class User extends BaseUser
      *
      * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
      */
+
     protected $firstname;
 
     /**
@@ -64,7 +65,14 @@ class User extends BaseUser
      * @ORM\Column(name="address", type="string", length=255,nullable=true)
      */
     protected $address;
-
+//    public function __construct()
+//    {
+//        parent::__construct();
+//// your own logic
+//
+//        $this->roles = array($this->role);
+//
+//    }
     /**
      * Get id
      *

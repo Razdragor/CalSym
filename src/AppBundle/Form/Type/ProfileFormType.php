@@ -6,6 +6,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use AppBundle\Subscriber\AddFormListener;
 
 
 class ProfileFormType extends AbstractType
@@ -20,24 +23,44 @@ class ProfileFormType extends AbstractType
     {
         parent::buildForm($builder, $options);
 
+//        $user = $event->getForm()->getData();
 
         // Ajoutez vos champs ici, revoilà notre champ *location* :
         $builder->add('firstname', TextType::class);
         $builder->add('lastname', TextType::class);
 
-        var_dump($this->authorization);
-
-        if($this->authorization->isGranted('ROLE_ADMIN'))
-        {
-            $builder->add('bar');
-        }
+//
+//        if($this->authorization->isGranted('ROLE_USER'))
+//        {
+//            $builder->add('bar');
+//        }
         $builder->add('role', ChoiceType::class, array(
             'choices'   => array(
                 'Patient'   => 'PATIENT',
                 'Professionnel' => 'PROF'
             )
         ));
-    }
+
+//        $builder->addEventListener(FormEvents::PRE_SUBMIT,function(FormEvent $event){
+//                $data = $event->getData();
+//                $form = $event->getForm();
+
+//                $country = $data['country'];
+//                var_dump($data);
+//                $form->add('speciality', TextType::class);
+//                if(!$data['role'] == "PROF")
+//                {
+//                    $form->add('lastname', TextType::class);
+//                }
+//                else
+//                {
+//                    $form->add('lastname', TextType::class);
+//                }
+
+//            }
+//        );
+        $builder->addEventSubscriber(new AddFormListener());
+   }
 
     public function getParent()
     {

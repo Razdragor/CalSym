@@ -42,11 +42,19 @@ class AddDefaultRoleListener implements EventSubscriberInterface {
 
     public function setRole(FormEvent $event)
     {
-        $aRoles = array('ROLE_USER','ROLE_ASSOC');
-
-        /** @var $user \FOS\UserBundle\Model\UserInterface */
-
         $user = $event->getForm()->getData();
+
+
+        if($user->getRole() == "PATIENT")
+        {
+            $user->addRole($user->getRole());
+        }
+        else
+        {
+            $user->addRole($user->getRole());
+        }
+
+
 
 //        var_dump($user);
 //        die();
