@@ -5,9 +5,10 @@
     <p>{{ 'profile.show.firstname'|trans }}: {{ user.firstname }}</p>
     <p>{{ 'profile.show.lastname'|trans }}: {{ user.lastname }}</p>
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+    {% if  user.role == "PROF" %}
     <p>{{ 'profile.show.activity'|trans }}: {{ user.activity}}</p>
     <p>{{ 'profile.show.address'|trans }}: {{ user.address}}</p>
-
-
+    {% endif %}
+    <a class="btn btn-primary" href="{{ path("fos_user_profile_edit")}}">Edit</a>
 
 </div>
