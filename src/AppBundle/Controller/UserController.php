@@ -39,7 +39,10 @@ class UserController extends Controller {
         // create an event and give it some initial data
         $event = new UserEvent();
         $event->setDate(new \DateTime("today"));
-        $event->setUserId($user->getId());
+        $event->setIsactive(false);
+
+        $event->setUserId($user);
+
 
         //Create form using UserEventType class
 
@@ -86,7 +89,7 @@ class UserController extends Controller {
         $user = $this->getUser();
 
         //Check whether event belongs to user
-        if ($user->getId() !== $event->getUserId()) {
+        if ($user != $event->getUserId()) {
             $this->addFlash(
                 'danger', 'This event is not yours!'
             );
@@ -114,7 +117,7 @@ class UserController extends Controller {
         $event = $em->getRepository("AppBundle:UserEvent")->findOneById($id);
 
         //Check whether event belongs to user
-        if ($user->getId() === $event->getUserId()) {
+        if ($user != $event->getUserId()) {
             $em->remove($event);
             $em->flush();
 
@@ -143,7 +146,7 @@ class UserController extends Controller {
         $event = $em->getRepository("AppBundle:UserEvent")->findOneById($id);
 
         //Check whether event belongs to user
-        if ($user->getId() !== $event->getUserId()) {
+        if ($user != $event->getUserId()) {
             $this->addFlash(
                 'danger', 'This event is not yours!'
             );

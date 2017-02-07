@@ -1,5 +1,6 @@
 $(function () {
 
+   var userid = $("#userid").val();
 
     $('#calendar-holder').fullCalendar({
         header: {
@@ -18,6 +19,7 @@ $(function () {
                 type: 'POST',
                 // A way to add custom filters to your event listeners
                 data: {
+                    userid: userid
                 },
                 error: function() {
                     //alert('There was an error while fetching Google Calendar!');

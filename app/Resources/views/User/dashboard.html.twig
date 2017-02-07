@@ -17,11 +17,12 @@
         </div>
         {% endfor %}
 
-        <input type="hidden" value="{{ app.user.id }}" name="userid">
+        <input type="hidden" value="{{ app.user.id }}" name="userid" id="userid">
 
 
         {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
     </div>
-    <script type="text/javascript">
-    </script>
+
+    <script type="text/javascript" src="{{ asset('js/fullcalendar.default-settings.js') }}"></script>
+
 {% endblock %}

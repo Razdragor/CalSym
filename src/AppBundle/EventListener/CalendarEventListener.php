@@ -31,6 +31,7 @@ class CalendarEventListener
         // Use the filter in your query for example
 
         $request = $calendarEvent->getRequest();
+
         $filter = $request->get('userid');
 
         // load events using your custom logic here,
@@ -63,6 +64,7 @@ class CalendarEventListener
 
             //optional calendar event settings
             $eventEntity->setAllDay(true); // default is false, set to true if this is an all day event
+
             if($eventDate < $now){
                 $eventEntity->setBgColor('#FF0000');
             }
