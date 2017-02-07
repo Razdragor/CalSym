@@ -3,15 +3,27 @@
 
 {% block body %}
 
+    <table class="table">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Spécialité</th>
+        <th>Adresse</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+
     {% for pro in users %}
-
-        <h4 class="underline">Nom #{{pro.lastname}}</h4>
-        <h3><small>Title:</small> {{pro.firstname}}</h3>
-        {#<h4><small>Date:</small> {{pro.speciality}}</h4>#}
-        {#<p><small>Content:</small> {{event.adresse}}</p>#}
-        <br/>
-        {#<a class="btn btn-primary" href="{{ path("calendar_app_editEvent", {'id': event.id}) }}">Edit</a>#}
-        {#<a class="btn btn-danger" href="{{ path("calendar_app_removeEvent", {'id': event.id}) }}">Remove</a>#}
-
+    <tr>
+        <th>{{pro.lastname}}</th>
+        <th>{{pro.firstname}}</th>
+        <th>{{pro.activity}}</th>
+        <th>{{pro.address}}</th>
+        <th> <a class="btn btn-primary" href="{{ path("calendar_app_showPro", {'id': pro.id}) }}">Edit</a></th>
+    </tr>
     {%  endfor %}
+    </tbody>
+    </table>
 {% endblock %}

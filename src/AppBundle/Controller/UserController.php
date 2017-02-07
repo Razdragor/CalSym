@@ -223,5 +223,22 @@ class UserController extends Controller {
 
     }
 
+    /**
+     * @Route("/app/listp/show/{id}", name="calendar_app_showPro", requirements={"id" = "\d+"})
+     */
+    public function showProAction($id, Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository("AppBundle:User")->findOneById($id);
+
+        return $this->render('user/showPro.html.twig', array(
+            'pro' => $user
+        ));
+
+
+    }
+
 
 }
