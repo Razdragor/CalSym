@@ -48,13 +48,18 @@ class UserEvent
     private $date;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="userId", type="integer")
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
      */
     private $userId;
 
-/**
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="proId", referencedColumnName="id")
+     */
+    private $proId;
+
+    /**
      * @var isactive
      * @ORM\Column(name="isactive", type="boolean", options={"default":false})
      */
@@ -183,6 +188,22 @@ class UserEvent
     public function getIsactive()
     {
         return $this->isactive;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProId()
+    {
+        return $this->proId;
+    }
+
+    /**
+     * @param mixed $proId
+     */
+    public function setProId($proId)
+    {
+        $this->proId = $proId;
     }
 
 }
