@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/front/contact.css') }}" />
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script>
+        {#<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/calendar-settings.js') }}"></script>#}
+        <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+
+    {% endblock %}
+</head>
+
+<body>
+<div class="container">
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="{{ path('calendar_homepage') }}" class="navbar-brand">CalendarApp</a>
+                </div>
+                <div class="navbar-collapse collapse" id="navbar">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ path('admin_listUser') }}">User list</a></li>
+                        <li><a href="{{ path('admin_calendar_app_listEvent') }}">Event list</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/app_dev.php/">base</a></li>
+                            <li><a href="{{ path('fos_user_profile_show') }}">Profile</a></li>
+                            <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div><!--/.container-fluid -->
+        </nav>
+    </header>
+
+    {% block jumbotron %}{% endblock %}
+
+    {% block body %} {% block fos_user_content %}{% endblock %}{% endblock %}
+
+</div>
+</body>
+</html>

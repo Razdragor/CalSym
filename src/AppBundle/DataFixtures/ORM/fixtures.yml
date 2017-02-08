@@ -129,6 +129,18 @@ AppBundle\Entity\User:
         company: '@company5'
         address: '<address()>'
 
+    user{36..37}:
+        username (unique): '<username()>'
+        firstname: '<firstName()>'
+        lastname: '<lastName()>'
+        password: '<{passwordBcryt}>'
+        email (unique) : '<email()>'
+        role: 'ADMIN'
+        roles: ["ADMIN"]
+        enabled: 1
+        company: '@company5'
+        address: '<address()>'
+
 AppBundle\Entity\UserEvent:
 
     userevent1:

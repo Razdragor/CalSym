@@ -1,0 +1,24 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/jquery.min.jss') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+
+{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center text-primary">Edit user !</h1><br/>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+{% endblock %}

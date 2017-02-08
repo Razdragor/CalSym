@@ -1,0 +1,41 @@
+{% extends 'baseAdmin.html.twig' %}
+
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>utilisateur</th>
+                <th>Titre</th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Commentaire</th>
+                <th>Status</th>
+                <th>Action</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{event.userid}}</td>
+                <td>{{event.eventtitle}}</td>
+                <td>{{event.date|date("Y-m-d")}}</td>
+                <td>{{event.date|date("H:i")}}</td>
+                <td>{{event.eventcontent}}</td>
+                {% if event.isactive %}
+                    <td>Actif</td>
+                {% else %}
+                    <td>Non actif</td>
+                {% endif %}
+                <td><a class="btn btn-primary" href="{{ path("admin_calendar_app_editEvent", {'id': event.id}) }}">Edit</a></td>
+                <td><a class="btn btn-danger" href="{{ path("admin_calendar_app_removeEvent", {'id': event.id}) }}">Remove</a></td>
+            </tr>
+        </tbody>
+        {%  endfor %}
+    </table>
+
+{% endblock %}
+
+{# <td><a href="{{ path('admin_calendar_app_listEvent', {'id': event.realUserId}) }}"></a>{{event.userid}}</td> #}
