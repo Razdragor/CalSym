@@ -72,24 +72,7 @@ class User extends BaseUser
     protected $address;
 
 
-    /**
-     * @var \lastLogin
-     *
-     * @Assert\NotBlank()
-     * @Assert\Type("\DateTime")
-     */
-    protected $lastLogin;
-
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
-    public function getLastLogin()
-    {
-        return $this->lastLogin;
-    }
-
+ 
     /**
      * @return string
      */
