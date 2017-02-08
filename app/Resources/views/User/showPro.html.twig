@@ -5,12 +5,37 @@
 
     <h4 class="underline">Proid #{{pro.id}}</h4>
 
-    <th>{{pro.lastname}}</th>
-    <th>{{pro.firstname}}</th>
-    {% if pro.getActivity() %}
-        <th>{{pro.getActivity().name}}</th>
-    {% endif %}
-    <th>{{pro.address}}</th>
-    <th>{{pro.description}}</th>
+    <div class="block">
+        <div class="row">
+            <div class="col-md-1">
+
+                <p><img class="imageprofil" src="{{ asset('images/doctor_256.png')}}" alt=""/></p>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <h4><b>Dr</b> {{pro.firstname}} {{pro.lastname}} </h4>
+                </div>
+                <div class="row">
+                    {% if pro.getActivity() %}
+                        <p>{{pro.getActivity().name}}</p>
+                    {% else %}
+                        <p>Unknown</p>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <p>{{pro.address}}</p>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="row">
+                    <p>{{pro.description}}</p>
+                </div>
+
+            </div>
+        </div>
+        <div  class="row">
+            <a class="btn btn-primary top-plus" href="{{ path("calendar_app_addEventbyID", {'id': pro.id}) }}">Prendre rendez vous</a>
+        </div>
+    </div>
 
 {% endblock %}

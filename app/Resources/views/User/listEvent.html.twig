@@ -3,21 +3,35 @@
 
 {% block body %}
 
-    {% for event in events %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Commentaire</th>
+                <th>Status</th>
+                <th>Action</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{event.eventtitle}}</td>
+                <td>{{event.date|date("Y-m-d")}}</td>
+                <td>{{event.date|date("H:i")}}</td>
+                <td>{{event.eventcontent}}</td>
+                {% if event.isactive %}
+                    <td>Actif</td>
+                {% else %}
+                    <td>Non actif</td>
+                {% endif %}
+                <td><a class="btn btn-primary" href="{{ path("calendar_app_editEvent", {'id': event.id}) }}">Edit</a></td>
+                <td><a class="btn btn-danger" href="{{ path("calendar_app_removeEvent", {'id': event.id}) }}">Remove</a></td>
+            </tr>
+        </tbody>
+        {%  endfor %}
+    </table>
 
-    <h4 class="underline">Event #{{event.id}}</h4>
-    <h3><small>Title:</small> {{event.eventtitle}}</h3>
-    <h4><small>Date:</small> {{event.date|date("Y-m-d")}}</h4>
-    <h4><small>Hour:</small> {{event.date|date("H:i")}}</h4>
-    <br/><br/>
-    <p><small>Content:</small> {{event.eventcontent}}</p>
-    {% if event.isactive %}
-        <p><small>Content:</small> actif</p>
-    {% else %}
-        <p><small>Content:</small> pasactif</p>
-    {% endif %}
-            <br/>
-    <a class="btn btn-primary" href="{{ path("calendar_app_editEvent", {'id': event.id}) }}">Edit</a>
-    <a class="btn btn-danger" href="{{ path("calendar_app_removeEvent", {'id': event.id}) }}">Remove</a>
-    {%  endfor %}
 {% endblock %}

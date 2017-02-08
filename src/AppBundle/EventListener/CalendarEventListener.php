@@ -40,7 +40,7 @@ class CalendarEventListener
         $companyEvents = $this->entityManager->getRepository('AppBundle:UserEvent')
         ->createQueryBuilder('user_event')
         ->where('user_event.date BETWEEN :startDate and :endDate')
-        ->andWhere('user_event.userId = :userId')
+        ->andWhere('user_event.userId = :userId OR user_event.proId = :userId')
         ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
         ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
         ->setParameter("userId", $filter)

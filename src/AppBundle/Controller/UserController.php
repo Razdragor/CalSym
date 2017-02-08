@@ -76,6 +76,58 @@ class UserController extends Controller {
     }
 
     /**
+     * @Route("/app/event/add/{id}", name="calendar_app_addEventbyID", requirements={"id" = "\d+"})
+     *
+     */
+    public function addEventIdAction(Request $request,$id) {
+
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $userpro = $em->getRepository("AppBundle:User")->findOneById($id);
+
+
+        // create an event and give it some initial data
+        $event = new UserEvent();
+        $event->setDate(new \DateTime("today"));
+        $event->setIsactive(false);
+
+        $event->setUserId($user);
+        $event->setProId($userpro);
+
+
+        //Create form using UserEventType class
+
+        $form = $this->createFormBuilder($event)
+            ->add('eventTitle', TextType::class)
+            ->add('eventContent', TextType::class)
+            ->add('date', DateTimeType ::class)
+            ->add('save', SubmitType::class, array('label' => 'Save Event'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($event);
+            $em->flush();
+
+            $this->addFlash(
+                'success', 'You\'ve created new event!'
+            );
+
+            return $this->redirectToRoute('calendar_app_dashboard');
+        }
+
+        return $this->render('user/addEvent.html.twig', array(
+            'form' => $form->createView(),
+        ));
+        //if form is valid the event will be created
+
+    }
+
+    /**
      * @Route("/app/event/{id}", name="calendar_app_showEvent", requirements={"id" = "\d+"})
      *
      * @Template
