@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Doctrine\ORM\EntityManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class UserController extends Controller {
 
@@ -29,7 +30,7 @@ class UserController extends Controller {
     }
 
     /**
-     * @Route("/app/event/add", name="calendar_app_addEvent")
+     * @Route("/event/add", name="calendar_app_addEvent")
      *
      */
     public function addEventAction(Request $request) {
@@ -49,7 +50,7 @@ class UserController extends Controller {
         $form = $this->createFormBuilder($event)
             ->add('eventTitle', TextType::class)
             ->add('eventContent', TextType::class)
-            ->add('date', DateTimeType ::class)
+            ->add('date', DateTimeType ::class,array('minutes' => array(0,30)))
             ->add('save', SubmitType::class, array('label' => 'Save Event'))
             ->getForm();
 
@@ -76,8 +77,8 @@ class UserController extends Controller {
     }
 
     /**
-     * @Route("/app/event/add/{id}", name="calendar_app_addEventbyID", requirements={"id" = "\d+"})
-     *
+     * @Route("/event/add/{id}", name="calendar_app_addEventbyID", requirements={"id" = "\d+"})
+     * @Security("has_role('PATIENT')")
      */
     public function addEventIdAction(Request $request,$id) {
 
@@ -128,7 +129,7 @@ class UserController extends Controller {
     }
 
     /**
-     * @Route("/app/event/{id}", name="calendar_app_showEvent", requirements={"id" = "\d+"})
+     * @Route("/event/{id}", name="calendar_app_showEvent", requirements={"id" = "\d+"})
      *
      * @Template
      */
@@ -140,13 +141,27 @@ class UserController extends Controller {
 
         $user = $this->getUser();
 
+//        var_dump($event->getProId());
         //Check whether event belongs to user
-        if ($user != $event->getUserId()) {
-            $this->addFlash(
-                'danger', 'This event is not yours!'
-            );
-            return $this->redirectToRoute('calendar_app_dashboard');
+
+        if($event->getProId())
+        {
+            if ($user != $event->getProId()) {
+                $this->addFlash(
+                    'danger', 'This event is not yours!'
+                );
+                return $this->redirectToRoute('calendar_app_dashboard');
+            }
         }
+        else{
+            if ($user != $event->getUserId()) {
+                $this->addFlash(
+                    'danger', 'This event is not yours!'
+                );
+                return $this->redirectToRoute('calendar_app_dashboard');
+            }
+        }
+
 
         return $this->render('user/showEvent.html.twig', array(
             "id" => $event->getId(),
@@ -157,7 +172,7 @@ class UserController extends Controller {
     }
 
     /**
-     * @Route("/app/event/remove/{id}", name="calendar_app_removeEvent", requirements={"id" = "\d+"})
+     * @Route("/event/remove/{id}", name="calendar_app_removeEvent", requirements={"id" = "\d+"})
      *
      * @Template
      */
@@ -169,24 +184,30 @@ class UserController extends Controller {
         $event = $em->getRepository("AppBundle:UserEvent")->findOneById($id);
 
         //Check whether event belongs to user
-        if ($user != $event->getUserId()) {
-            $em->remove($event);
-            $em->flush();
-
-            $this->addFlash(
-                'danger', 'You\'ve successfully removed event!'
-            );
-        }else{
-            $this->addFlash(
-                'danger', 'This event is not yours!'
-            );
+        if($event->getProId())
+        {
+            if ($user != $event->getProId()) {
+                $this->addFlash(
+                    'danger', 'This event is not yours!'
+                );
+                return $this->redirectToRoute('calendar_app_dashboard');
+            }
         }
+        else{
+            if ($user != $event->getUserId()) {
+                $this->addFlash(
+                    'danger', 'This event is not yours!'
+                );
+                return $this->redirectToRoute('calendar_app_dashboard');
+            }
+        }
+
 
         return $this->redirectToRoute('calendar_app_dashboard');
     }
 
     /**
-     * @Route("/app/event/edit/{id}", name="calendar_app_editEvent", requirements={"id" = "\d+"})
+     * @Route("/event/edit/{id}", name="calendar_app_editEvent", requirements={"id" = "\d+"})
      *
      * @Template
      */
@@ -198,12 +219,24 @@ class UserController extends Controller {
         $event = $em->getRepository("AppBundle:UserEvent")->findOneById($id);
 
         //Check whether event belongs to user
-        if ($user != $event->getUserId()) {
-            $this->addFlash(
-                'danger', 'This event is not yours!'
-            );
-            return $this->redirectToRoute('calendar_app_dashboard');
+        if($event->getProId())
+        {
+            if ($user != $event->getProId()) {
+                $this->addFlash(
+                    'danger', 'This event is not yours!'
+                );
+                return $this->redirectToRoute('calendar_app_dashboard');
+            }
         }
+        else{
+            if ($user != $event->getUserId()) {
+                $this->addFlash(
+                    'danger', 'This event is not yours!'
+                );
+                return $this->redirectToRoute('calendar_app_dashboard');
+            }
+        }
+
 
         $form = $this->createFormBuilder($event)
             ->add('eventTitle', TextType::class)
@@ -236,20 +269,31 @@ class UserController extends Controller {
     }
 
     /**
-     * @Route("/app/event/list", name="calendar_app_listEvent")
-     *
+     * @Route("/event/list", name="calendar_app_listEvent")
      * @Template
      */
     public function listEventAction(Request $request) {
 
-        $user = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
+        if($user = $this->getUser())
+        {
+            $user = $this->getUser();
 
-        $repository = $this->getDoctrine()->getRepository('AppBundle:UserEvent');
 
-        $events = $repository->findBy(
-            array('userId' => $user->getId())
-        );
+            $em = $this->getDoctrine()->getManager();
+
+            $repository = $this->getDoctrine()->getRepository('AppBundle:UserEvent');
+
+
+            $events = $repository->findBy(
+                array('userId' => $user->getId(),
+                )
+            );
+
+        }
+        else{
+            $events = null;
+        }
+
 
          return $this->render('user/listEvent.html.twig', array(
             'events' => $events
@@ -343,7 +387,7 @@ class UserController extends Controller {
     }
 
     /**
-     * @Route("/app/listp/show/{id}", name="calendar_app_showPro", requirements={"id" = "\d+"})
+     * @Route("/listp/show/{id}", name="calendar_app_showPro", requirements={"id" = "\d+"})
      */
     public function showProAction($id, Request $request)
     {

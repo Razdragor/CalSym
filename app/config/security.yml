@@ -4,7 +4,7 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_ADMIN:       [PATIENT, PROF]
+        ROLE_ADMIN:       [ROLE_USER,PATIENT, PROF]
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     providers:
@@ -27,4 +27,6 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/event/.*, role: ROLE_USER }
+        - { path: ^/app/, role: ROLE_USER }
+        - { path: ^/admin/.*, role: ROLE_SUPER_ADMIN }

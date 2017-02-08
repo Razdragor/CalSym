@@ -17,8 +17,9 @@
         </div>
         {% endfor %}
 
-        <input type="hidden" value="{{ app.user.id }}" name="userid" id="userid">
-
+        {% if(app.user)  %}
+            <input type="hidden" value="{{ app.user.id }}" name="userid" id="userid">
+        {% endif %}
 
         {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
     </div>
