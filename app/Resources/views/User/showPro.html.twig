@@ -2,8 +2,17 @@
 
 
 {% block body %}
-
-    <h4 class="underline">Proid #{{pro.id}}</h4>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 100%;
+        }
+    </style>
+    <h4 class="underline">Plus d'informations</h4>
 
     <div class="block">
         <div class="row">
@@ -23,19 +32,52 @@
                     {% endif %}
                 </div>
                 <div class="row">
-                    <p>{{pro.address}}</p>
+                    <p id="address">{{ pro.address }}</p>
                 </div>
             </div>
             <div class="col-md-5">
                 <div class="row">
                     <p>{{pro.description}}</p>
                 </div>
-
+                <div  class="row">
+                    <a class="btn btn-primary top-plus" href="{{ path("calendar_app_addEventbyID", {'id': pro.id}) }}">Prendre rendez vous</a>
+                </div>
             </div>
+
         </div>
-        <div  class="row">
-            <a class="btn btn-primary top-plus" href="{{ path("calendar_app_addEventbyID", {'id': pro.id}) }}">Prendre rendez vous</a>
+        <div class="vovo" style="width: 100%; height: 300px; margin-top: 25px;">
+            <div id="map"></div>
         </div>
     </div>
+
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: {lat: -34.397, lng: 150.644}
+            });
+            var geocoder = new google.maps.Geocoder();
+            geocodeAddress(geocoder, map);
+        }
+
+        function geocodeAddress(geocoder, resultsMap) {
+            var address = $('#address').text();
+            geocoder.geocode({'address': address}, function(results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQK4GPSJTqpdA2tyJYNGTJcZ5nphzbyaQ&callback=initMap"
+            async defer></script>
 
 {% endblock %}
