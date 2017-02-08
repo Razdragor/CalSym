@@ -18,3 +18,7 @@ services:
         arguments: ["@security.authorization_checker"]
         tags:
             - { name: form.type }
+
+    user_event.service:
+        class: AppBundle\Services\UserEventService
+        arguments: [ "@doctrine.orm.entity_manager" , "@service_container" ]
