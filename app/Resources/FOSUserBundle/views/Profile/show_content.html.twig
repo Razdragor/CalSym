@@ -6,8 +6,12 @@
     <p>{{ 'profile.show.lastname'|trans }}: {{ user.lastname }}</p>
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
     {% if  user.role == "PROF" %}
-    <p>{{ 'profile.show.activity'|trans }}: {{ user.activity}}</p>
+        {% if user.getActivity() %}
+            <p>{{ 'profile.show.activity'|trans }}: {{ user.getActivity().name }}</p>
+
+        {% endif %}
     <p>{{ 'profile.show.address'|trans }}: {{ user.address}}</p>
+    <p>{{ 'profile.show.address'|trans }}: {{ user.description}}</p>
     {% endif %}
     <a class="btn btn-primary" href="{{ path("fos_user_profile_edit")}}">Edit</a>
 

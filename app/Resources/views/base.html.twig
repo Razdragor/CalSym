@@ -8,6 +8,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
         <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/front/contact.css') }}" />
     {% endblock %}
 
     {% block javascripts %}
@@ -39,11 +40,11 @@
                     <ul class="nav navbar-nav">
 
                         {% if app.user %}
-                            <li><a href="{{ path('calendar_app_dashboard') }}">Dashboard</a></li>
-                            <li><a href="{{ path('calendar_app_addEvent') }}">Add Event</a></li>
                             <li><a href="{{ path('calendar_app_listPro') }}">Pro List</a></li>
+                            <li><a href="{{ path('calendar_app_listEvent') }}">Event List</a></li>
                             {%  if app.user.role == "PROF" %}
-                                <li><a href="{{ path('calendar_app_listEvent') }}">Event List</a></li>
+                                <li><a href="{{ path('calendar_app_dashboard') }}">Calendar</a></li>
+                                <li><a href="{{ path('calendar_app_addEvent') }}">Add Event</a></li>
                             {% endif %}
                         {% else %}
                             <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>

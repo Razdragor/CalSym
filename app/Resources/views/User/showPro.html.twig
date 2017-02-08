@@ -7,7 +7,10 @@
 
     <th>{{pro.lastname}}</th>
     <th>{{pro.firstname}}</th>
-    <th>{{pro.activity}}</th>
+    {% if pro.getActivity() %}
+        <th>{{pro.getActivity().name}}</th>
+    {% endif %}
     <th>{{pro.address}}</th>
+    <th>{{pro.description}}</th>
 
 {% endblock %}

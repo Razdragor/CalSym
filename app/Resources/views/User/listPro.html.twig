@@ -1,29 +1,59 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
 
-    <table class="table">
-    <thead>
-    <tr>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Spécialité</th>
-        <th>Adresse</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
+    <div class="row">
+    <div class="col-md-12">
+
+    <form class="form-inline" role="search" id="nav-search-form" method="post" action="{{ path("calendar_app_search")}}">
+        <select class="form-control" name="activity">
+            <option value="0">All</option>
+            {% for  activity in activities %}
+                <option value="{{ activity.id }}">{{ activity.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="text" class="form-control width-extra" placeholder="Adresse" name ="address" style="width: 80%">
+        <button type="submit" class="btn btn-default right-side">Search</button>
+     </form>
+
+    </div>
+    </div>
 
     {% for pro in users %}
-    <tr>
-        <th>{{pro.lastname}}</th>
-        <th>{{pro.firstname}}</th>
-        <th>{{pro.activity}}</th>
-        <th>{{pro.address}}</th>
-        <th> <a class="btn btn-primary" href="{{ path("calendar_app_showPro", {'id': pro.id}) }}">Edit</a></th>
-    </tr>
+    <div class="block">
+        <div class="row">
+            <div class="col-md-1">
+
+                <p><img class="imageprofil" src="{{ asset('images/doctor_256.png')}}" alt=""/></p>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <h4>DR {{pro.lastname}} {{pro.firstname}}</h4>
+                </div>
+                <div class="row">
+                    {% if pro.getActivity() %}
+                        <p>{{pro.getActivity().name}}</p>
+                    {% else %}
+                        <p>Unknown</p>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <p>{{pro.address}}</p>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="row">
+                    <p>{{pro.description}}</p>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <span class="top-plus">
+                    <a class="btn btn-primary top-plus" href="{{ path("calendar_app_showPro", {'id': pro.id}) }}">Prendre rendez vous</a>
+                </span>
+            </div>
+
+        </div>
+    </div>
     {%  endfor %}
-    </tbody>
-    </table>
 {% endblock %}

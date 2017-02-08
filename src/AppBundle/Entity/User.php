@@ -56,23 +56,42 @@ class User extends BaseUser
      */
     protected $role;
 
+
     /**
-     * @ORM\Column(name="activity", type="string", length=255,nullable=true)
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Activity", inversedBy="users")
+     * @ORM\JoinColumn(name="activity_id", referencedColumnName="id",nullable=true)
      */
-    protected $activity;
+    private $activity;
 
     /**
      * @ORM\Column(name="address", type="string", length=255,nullable=true)
      */
     protected $address;
-//    public function __construct()
-//    {
-//        parent::__construct();
-//// your own logic
-//
-//        $this->roles = array($this->role);
-//
-//    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     */
+    protected $description;
+
     /**
      * Get id
      *

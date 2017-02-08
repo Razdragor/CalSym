@@ -8,6 +8,7 @@
 
 namespace AppBundle\Subscriber;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -30,10 +31,16 @@ class AddFormListener implements EventSubscriberInterface {
         if (null != $event->getData()) {
             if($user->getRole() == "PROF")
             {
-                $form->add('activity', TextType::class);
+                $form->add('activity', EntityType::class, array(
+                    'class' => 'AppBundle:Activity',
+                    'choice_label' => 'name',
+                ));
                 $form->add('address', TextType::class);
+                $form->add('description', TextType::class);
+
             }
         }
     }
+
 
 }

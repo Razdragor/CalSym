@@ -24,3 +24,16 @@
 #content div.contact div.bloc-contact label{
   margin: 10px;
 }
+.imageprofil
+{
+  width: 80px;
+  height: 80px;
+}
+
+.block{
+  padding-top: 25px;
+}
+
+.top-plus{
+  margin-top: 25px;
+}

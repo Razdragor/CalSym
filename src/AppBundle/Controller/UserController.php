@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
+use Doctrine\ORM\EntityManager;
 
 class UserController extends Controller {
 
@@ -215,14 +215,78 @@ class UserController extends Controller {
 
         $repository = $this->getDoctrine()->getRepository('AppBundle:User');
 
+        $activities = $em->getRepository("AppBundle:Activity")->findAll();
+
         $users= $repository->findBy(
             array('role' => "PROF")
         );
 
         return $this->render('user/listpro.html.twig', array(
-            'users' => $users
+            'users' => $users,
+            'activities' => $activities
         ));
 
+    }
+
+    /**
+     * @Route("/search", name="calendar_app_search")
+     */
+    public function searchAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+
+        $repository = $this->getDoctrine()->getRepository('AppBundle:User');
+
+        $repositoryActivity = $this->getDoctrine()->getRepository('AppBundle:Activity');
+        $activities = $em->getRepository("AppBundle:Activity")->findAll();
+
+
+
+        $address = $request->request->get('address');
+
+        if($request->request->get('activity') != 0 && $request->request->get('address') != "")
+        {
+            $activity = $repositoryActivity->findOneById($request->request->get('activity'));
+
+            $userpro = $repository->createQueryBuilder('user')
+                ->where('user.address LIKE :address')
+                ->andWhere('user.activity = :activity')
+                ->setParameter("address", '%'.$address.'%')
+                ->setParameter("activity", $activity)
+                ->getQuery()->getResult();
+
+        }
+        elseif($request->request->get('activity') == 0 && $request->request->get('address') != "")
+        {
+            $userpro = $repository->createQueryBuilder('user')
+                ->where('user.address LIKE :address')
+                ->setParameter("address", '%'.$address.'%')
+                ->getQuery()->getResult();
+        }
+        elseif($request->request->get('activity') != 0 && $request->request->get('address') == "")
+        {
+            $activity = $repositoryActivity->findOneById($request->request->get('activity'));
+
+            $userpro = $repository->createQueryBuilder('user')
+                ->where('user.activity = :activity')
+                ->setParameter("activity", $activity)
+                ->getQuery()->getResult();
+        }
+        else{
+            $activities = $em->getRepository("AppBundle:Activity")->findAll();
+
+            $userpro = $repository->findBy(
+                array('role' => "PROF")
+            );
+
+        }
+
+
+        return $this->render('user/listpro.html.twig', array(
+            'users' => $userpro,
+            'activities' => $activities
+        ));
 
     }
 
