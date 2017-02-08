@@ -58,6 +58,17 @@ class UserController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $userEventService = $this->get('user_event.service');
+            if($userEventService->checkUserEventDate($event)){
+                $this->addFlash(
+                    'danger', 'An appointment already exists at this time!'
+                );
+
+                return $this->render('user/addEvent.html.twig', array(
+                    'form' => $form->createView(),
+                ));
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
@@ -97,6 +108,8 @@ class UserController extends Controller {
         $event->setProId($userpro);
 
 
+
+
         //Create form using UserEventType class
 
         $form = $this->createFormBuilder($event)
@@ -110,6 +123,17 @@ class UserController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $userEventService = $this->get('user_event.service');
+            if($userEventService->checkUserEventDate($event)){
+                $this->addFlash(
+                    'danger', 'An appointment already exists at this time!'
+                );
+
+                return $this->render('user/addEvent.html.twig', array(
+                    'form' => $form->createView(),
+                ));
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
@@ -117,6 +141,7 @@ class UserController extends Controller {
             $this->addFlash(
                 'success', 'You\'ve created new event!'
             );
+
 
             return $this->redirectToRoute('calendar_app_dashboard');
         }
