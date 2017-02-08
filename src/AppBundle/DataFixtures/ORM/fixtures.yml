@@ -1,3 +1,6 @@
+parameters:
+    passwordBcryt: '$2a$06$DbGJkfLNN2eSXzctSqeolu.NY9Sp2Ddt3rSWjPn1hPeSDBcg48KJS'
+
 AppBundle\Entity\Company:
     company{1..5}:
         name: '<company()>'
@@ -5,8 +8,10 @@ AppBundle\Entity\Company:
         city: '<city()>'
         phone: '<phoneNumber()>'
 
-parameters:
-    passwordBcryt: '$2a$06$DbGJkfLNN2eSXzctSqeolu.NY9Sp2Ddt3rSWjPn1hPeSDBcg48KJS'
+AppBundle\Entity\Activity:
+    activity{1..20}:
+        name: '<jobTitle()>'
+
 
 AppBundle\Entity\User:
     user{1..5}:
@@ -80,6 +85,8 @@ AppBundle\Entity\User:
         enabled: 1
         company: '@company1'
         address: '<address()>'
+        activity: '@activity<numberBetween(1,20)>'
+        description: '<text(150)>'
 
     user{28..29}:
         username (unique): '<username()>'
@@ -92,6 +99,8 @@ AppBundle\Entity\User:
         enabled: 1
         company: '@company2'
         address: '<address()>'
+        activity: '@activity<numberBetween(1,20)>'
+        description: '<text(150)>'
 
     user{30..31}:
         username (unique): '<username()>'
@@ -104,6 +113,8 @@ AppBundle\Entity\User:
         enabled: 1
         company: '@company3'
         address: '<address()>'
+        activity: '@activity<numberBetween(1,20)>'
+        description: '<text(130)>'
 
     user{32..33}:
         username (unique): '<username()>'
@@ -116,6 +127,8 @@ AppBundle\Entity\User:
         enabled: 1
         company: '@company4'
         address: '<address()>'
+        activity: '@activity<numberBetween(1,20)>'
+        description: '<text(140)>'
 
     user{34..35}:
         username (unique): '<username()>'
@@ -128,6 +141,8 @@ AppBundle\Entity\User:
         enabled: 1
         company: '@company5'
         address: '<address()>'
+        activity: '@activity<numberBetween(1,20)>'
+        description: '<text(200)>'
 
 AppBundle\Entity\UserEvent:
 
