@@ -18,3 +18,7 @@ services:
         arguments: ["@security.authorization_checker"]
         tags:
             - { name: form.type }
+
+    app_bundle.services.mailer:
+        class:  AppBundle\Services\Mailer
+        arguments: [sendmail, templating]
