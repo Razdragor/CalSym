@@ -29,4 +29,4 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/event/.*, role: ROLE_USER }
         - { path: ^/app/, role: ROLE_USER }
-        - { path: ^/admin/.*, role: ROLE_SUPER_ADMIN }
+        - { path: ^/admin/, role: ROLE_ADMIN }
