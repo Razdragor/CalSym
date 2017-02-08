@@ -24,7 +24,8 @@ class AdminController extends Controller
      *
      * @Template
      */
-    public function adminListUsersAction(Request $request) {
+    public function adminListUsersAction(Request $request)
+    {
 
         $em = $this->getDoctrine()->getManager();
 
@@ -42,7 +43,8 @@ class AdminController extends Controller
      *
      * @Template
      */
-    public function adminEditPatientUserAction($id, Request $request) {
+    public function adminEditPatientUserAction($id, Request $request)
+    {
 
         $em = $this->getDoctrine()->getManager();
 
@@ -84,7 +86,8 @@ class AdminController extends Controller
      *
      * @Template
      */
-    public function adminListEventAction(Request $request) {
+    public function adminListEventAction(Request $request)
+    {
 
         $em = $this->getDoctrine()->getManager();
 
@@ -102,7 +105,8 @@ class AdminController extends Controller
      *
      * @Template
      */
-    public function adminEditEventAction($id, Request $request) {
+    public function adminEditEventAction($id, Request $request)
+    {
 
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
@@ -155,7 +159,8 @@ class AdminController extends Controller
      *
      * @Template
      */
-    public function removeEventAction($id) {
+    public function removeEventAction($id)
+    {
 
         $user = $this->getUser();
 
@@ -163,39 +168,39 @@ class AdminController extends Controller
         $event = $em->getRepository("AppBundle:UserEvent")->findOneById($id);
 
 
-            $em->remove($event);
-            $em->flush();
+        $em->remove($event);
+        $em->flush();
 
-            $this->addFlash(
-                'danger', 'You\'ve successfully removed event!'
-            );
+        $this->addFlash(
+            'danger', 'You\'ve successfully removed event!'
+        );
 
         return $this->redirectToRoute('admin_calendar_app_listEvent');
     }
-
-
 
     /**
      * @Route("/admin", name="admin_default")
      *
      * @Template
      */
-    public function AdminAction(Request $request) {
+    public function AdminAction(Request $request)
+    {
 
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('admin/index.html.twig');
-
-    /**
-     * @Route("/admin/test", name="admin_app_dashboard")
-     */
-    public function dashboardAction(Request $request)
-    {
-
-        // replace this example code with whatever you need
-        return $this->render('admin/dashboard.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..')
-        ]);
     }
 
+        /**
+         * @Route("/admin/test", name="admin_app_dashboard")
+         */
+        public
+        function dashboardAction(Request $request)
+        {
+
+            // replace this example code with whatever you need
+            return $this->render('admin/dashboard.html.twig', [
+                'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..')
+            ]);
+        }
 }
