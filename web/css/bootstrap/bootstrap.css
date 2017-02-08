@@ -1085,8 +1085,7 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #333;
-  background-color: #fff;
+  background-color: #eee;
 }
 input,
 button,
@@ -1111,6 +1110,16 @@ a:focus {
 }
 figure {
   margin: 0;
+}
+.txt-blanc{
+  color: #fff !important;
+}
+.soins{
+  padding: 0px !important;
+}
+.imagesoin{
+  width: 100%;
+  opacity: 0.5;
 }
 img {
   vertical-align: middle;
@@ -1586,6 +1595,7 @@ pre code {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  background-color: #fff;
 }
 @media (min-width: 768px) {
   .container {
@@ -3341,6 +3351,22 @@ fieldset[disabled] .btn-warning.focus {
   color: #f0ad4e;
   background-color: #fff;
 }
+.btn-connect{
+  color: #fff;
+  background-color: #006ec3;
+  border-color: #fff;
+}
+.btn-connect:focus,
+.btn-connect.focus {
+  color: #fff;
+  background-color: #006ec3;
+  border-color: #fff;
+}
+.btn-connect:hover {
+  color: #fff;
+  background-color: #006ec3;
+  border-color: #fff;
+}
 .btn-danger {
   color: #fff;
   background-color: #d9534f;
@@ -4497,7 +4523,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-color: #e7e7e7;
 }
 .navbar-default .navbar-brand {
-  color: #777;
+  color: #006ec3;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
@@ -4960,7 +4986,7 @@ a.badge:focus {
   padding-bottom: 30px;
   margin-bottom: 30px;
   color: inherit;
-  background-color: #eee;
+  background-color: #42b8dc;
 }
 .jumbotron h1,
 .jumbotron .h1 {
