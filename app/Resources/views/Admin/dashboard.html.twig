@@ -1,0 +1,29 @@
+{% extends 'baseAdmin.html.twig' %}
+
+
+{% block body %}
+    <div class="">
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success:</strong> {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        {% for flashMessage in app.session.flashbag.get('danger') %}
+            <div class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Warning:</strong> {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        {% if(app.user)  %}
+            <input type="hidden" value="{{ app.user.id }}" name="userid" id="userid">
+        {% endif %}
+
+        {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
+    </div>
+
+    <script type="text/javascript" src="{{ asset('js/fullcalendar.default-settings.js') }}"></script>
+
+{% endblock %}

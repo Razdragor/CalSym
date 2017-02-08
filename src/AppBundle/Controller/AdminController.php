@@ -185,6 +185,17 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('admin/index.html.twig');
+
+    /**
+     * @Route("/admin/test", name="admin_app_dashboard")
+     */
+    public function dashboardAction(Request $request)
+    {
+
+        // replace this example code with whatever you need
+        return $this->render('admin/dashboard.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..')
+        ]);
     }
 
 }

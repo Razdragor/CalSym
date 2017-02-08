@@ -1,19 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block jumbotron %}
+
+<div class="jumbotron main soins">
+    <img class="imagesoin" src="{{ asset('images/soin.png')}}" alt="soin"/>
+</div>
+
 <div class="jumbotron main">
-    <h1 class="text-white">CalendarApp</h1>
-    <p class="text-white">Organize your day, your way!<br/>Everywhere and anytime, you are the master of your time...</p>
+    <h1 class="txt-blanc">RDVSanté</h1>
+    <p class="txt-blanc">Organnisez vos rendez-vous!<br/>N'importe quand, accèdez aux jours de vos rendez-vous chez un professionel de la santé!</p>
     <p>
         {% if is_granted('ROLE_USER') %}
-            <a role="button" href="{{ path('calendar_app_dashboard') }}" class="btn btn-lg btn-success">Your calendar »</a>
+            <a role="button" href="{{ path('calendar_app_dashboard') }}" class="btn btn-lg btn-connect">Vos rendez-vous »</a>
         {% endif %}
-        
+
         {% if is_granted('ROLE_USER') == false %}
-            <a role="button" href="{{ path('fos_user_security_login') }}" class="btn btn-lg btn-danger">Getting started »</a>
+            <a role="button" href="{{ path('fos_user_security_login') }}" class="btn btn-lg btn-connect">Connectez-vous »</a>
         {% endif %}
     </p>
 </div>
+
 {% endblock %}
 
 {% block body %}

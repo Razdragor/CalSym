@@ -89,3 +89,5 @@ form:
     password_confirmation: 'Répéter le mot de passe'
     new_password: 'Nouveau mot de passe'
     new_password_confirmation: 'Répéter le nouveau mot de passe'
+mail:
+    subject_user_request: "Demande de rendez vous"
