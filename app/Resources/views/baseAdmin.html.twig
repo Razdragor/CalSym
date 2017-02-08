@@ -38,24 +38,13 @@
                 </div>
                 <div class="navbar-collapse collapse" id="navbar">
                     <ul class="nav navbar-nav">
-
-                        {% if app.user %}
-                            <li><a href="{{ path('calendar_app_listPro') }}">Pro List</a></li>
-                            <li><a href="{{ path('calendar_app_listEvent') }}">Event List</a></li>
-                            {%  if app.user.role == "PROF" %}
-                                <li><a href="{{ path('calendar_app_dashboard') }}">Calendar</a></li>
-                                <li><a href="{{ path('calendar_app_addEvent') }}">Add Event</a></li>
-                            {% endif %}
-                        {% else %}
-                            <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
-                            <li><a href="{{ path('fos_user_registration_register') }}">Register</a></li>
-                        {% endif %}
+                        <li><a href="{{ path('admin_listUser') }}">User list</a></li>
+                        <li><a href="{{ path('admin_calendar_app_listEvent') }}">Event list</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        {% if app.user %}
+                            <li><a href="/app_dev.php/">base</a></li>
                             <li><a href="{{ path('fos_user_profile_show') }}">Profile</a></li>
                             <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
-                        {% endif %}
                     </ul>
                 </div><!--/.nav-collapse -->
             </div><!--/.container-fluid -->

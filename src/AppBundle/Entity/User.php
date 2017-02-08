@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -69,6 +70,25 @@ class User extends BaseUser
      * @ORM\Column(name="address", type="string", length=255,nullable=true)
      */
     protected $address;
+
+
+    /**
+     * @var \lastLogin
+     *
+     * @Assert\NotBlank()
+     * @Assert\Type("\DateTime")
+     */
+    protected $lastLogin;
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getLastLogin()
+    {
+        return $this->lastLogin;
+    }
 
     /**
      * @return string
