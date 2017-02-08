@@ -39,7 +39,6 @@
                 </div>
                 <div class="navbar-collapse collapse" id="navbar">
                     <ul class="nav navbar-nav">
-
                         {% if app.user %}
                             <li><a href="{{ path('calendar_app_listPro') }}">Pro List</a></li>
                             <li><a href="{{ path('calendar_app_listEvent') }}">Event List</a></li>
@@ -53,6 +52,9 @@
                         {% endif %}
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li><a href="{{ path('admin_listUser') }}">Admin dashboard</a></li>
+                        {% endif %}
                         {% if app.user %}
                             <li><a href="{{ path('fos_user_profile_show') }}">Profile</a></li>
                             <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>

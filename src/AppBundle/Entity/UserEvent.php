@@ -65,6 +65,14 @@ class UserEvent
      */
     protected $isactive;
 
+
+    /**
+     * @var realUserId
+     *
+     * @ORM\Column(name="userId", type="integer")
+     */
+    private $realUserId;
+
     /**
      * Get id
      *
@@ -117,6 +125,16 @@ class UserEvent
      * @return integer
      */
     public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Get realUserId
+     *
+     * @return integer
+     */
+    public function getRealUserId()
     {
         return $this->userId;
     }

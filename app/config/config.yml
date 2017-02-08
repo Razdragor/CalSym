@@ -38,6 +38,10 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form_themes:
+        - bootstrap_3_layout.html.twig
+        - bootstrap_3_horizontal_layout.html.twig
+
 
 # Doctrine Configuration
 doctrine:
@@ -79,3 +83,6 @@ fos_user:
     profile:
         form:
             type: AppBundle\Form\Type\ProfileFormType
+    from_email:
+        address: you@example.com
+        sender_name: You

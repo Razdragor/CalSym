@@ -144,6 +144,18 @@ AppBundle\Entity\User:
         activity: '@activity<numberBetween(1,20)>'
         description: '<text(200)>'
 
+    user{36..37}:
+        username (unique): '<username()>'
+        firstname: '<firstName()>'
+        lastname: '<lastName()>'
+        password: '<{passwordBcryt}>'
+        email (unique) : '<email()>'
+        role: 'ADMIN'
+        roles: ["ADMIN"]
+        enabled: 1
+        company: '@company5'
+        address: '<address()>'
+
 AppBundle\Entity\UserEvent:
 
     userevent1:
