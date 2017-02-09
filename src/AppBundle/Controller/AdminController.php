@@ -54,6 +54,8 @@ class AdminController extends Controller
             ->add('email', TextType::class)
             ->add('firstname', TextType::class)
             ->add('lastname', TextType::class)
+            ->add('address', TextType::class, array('required' => false))
+            ->add('description', TextType::class, array('required' => false))
             ->add('isActivate', ChoiceType::class, array('choices' => array('Oui' => 1, 'Non' => Null)))
             //->add('role', ChoiceType::class, array('choices' => array('Admin' => "ROLE_ADMIN", 'Professionel' => "PROF", "Patient"=>"PATIENT")))
             ->add('save', SubmitType::class, array('label' => 'Save User'))
@@ -79,6 +81,31 @@ class AdminController extends Controller
             'form' => $form->createView(),
         ));
 
+    }
+
+
+    /**
+     * @Route("/admin/event/remove/{id}", name="admin_removePatientUser", requirements={"id" = "\d+"})
+     *
+     * @Template
+     */
+    public function adminRemovePatientUserAction($id)
+    {
+
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository("AppBundle:User")->findOneById($id);
+
+
+        $em->remove($user);
+        $em->flush();
+
+        $this->addFlash(
+            'danger', 'You\'ve successfully removed event!'
+        );
+
+        return $this->redirectToRoute('admin_listUser');
     }
 
     /**
