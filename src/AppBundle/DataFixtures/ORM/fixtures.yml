@@ -6,7 +6,7 @@ AppBundle\Entity\Company:
         name: '<company()>'
         address: '<streetAddress()>'
         city: '<city()>'
-        phone: '<phoneNumber()>'
+        phone: '<ean8()>'
 
 AppBundle\Entity\Activity:
     activity{1..20}:
