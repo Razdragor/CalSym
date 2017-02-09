@@ -1121,6 +1121,12 @@ figure {
   width: 100%;
   opacity: 0.5;
 }
+.form-register{
+  padding: 30px;
+}
+.align-form{
+  text-align: center;
+}
 img {
   vertical-align: middle;
 }
